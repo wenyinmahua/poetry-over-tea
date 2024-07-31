@@ -7,7 +7,7 @@ spring:
   application:
     name: poetry-over-tea
   profiles:
-    active: dev
+    active: local
   # 解决knife4j接口文档异常：Failed to start bean 'documentationPluginsBootstrapper'; nested exception is java.lang.NullPointerException
   mvc:
     pathmatch:
@@ -28,3 +28,9 @@ mybatis-plus:
       logic-delete-field: isDelete # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
       logic-delete-value: 1 # 逻辑已删除值(默认为 1)
       logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)
+mahua:
+  alioss:
+    endpoint: ${my.alioss.endpoint}
+    buck-net-name: ${my.alioss.bucketName}
+    access-key-id: ${my.alioss.accessKeyId}
+    access-key-secret: ${my.alioss.accessKeySecret}
