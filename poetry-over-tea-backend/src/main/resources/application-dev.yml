@@ -1,0 +1,7 @@
+poetry-over-tea:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spring-boot-init
+    username: root
+    password: 123456
+#   这里的密码以 0 开头可能会报错，这时需要将密码加上括号即可；
