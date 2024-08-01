@@ -9,7 +9,7 @@ import com.mahua.poetryovertea.common.ErrorCode;
 import com.mahua.poetryovertea.common.ResultUtils;
 import com.mahua.poetryovertea.exception.BusinessException;
 import com.mahua.poetryovertea.model.dto.*;
-import com.mahua.poetryovertea.model.entity.User;
+import com.mahua.poetryovertea.mapper.User;
 import com.mahua.poetryovertea.model.vo.UserVO;
 import com.mahua.poetryovertea.service.UserService;
 import org.apache.commons.lang3.StringUtils;

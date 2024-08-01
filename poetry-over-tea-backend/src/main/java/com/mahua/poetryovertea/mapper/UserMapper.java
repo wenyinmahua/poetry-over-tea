@@ -1,7 +1,6 @@
 package com.mahua.poetryovertea.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.mahua.poetryovertea.model.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
 

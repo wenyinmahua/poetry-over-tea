@@ -5,7 +5,7 @@ import com.mahua.poetryovertea.annotation.AuthCheck;
 import com.mahua.poetryovertea.common.ErrorCode;
 import com.mahua.poetryovertea.constant.UserConstant;
 import com.mahua.poetryovertea.exception.BusinessException;
-import com.mahua.poetryovertea.model.entity.User;
+import com.mahua.poetryovertea.mapper.User;
 import com.mahua.poetryovertea.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;

@@ -1,10 +1,11 @@
-package com.mahua.poetryovertea.model.entity;
+package com.mahua.poetryovertea.mapper;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 import lombok.Data;
 
@@ -32,14 +33,14 @@ public class User implements Serializable {
 	private String account;
 
 	/**
-	 * 用户头像URL
-	 */
-	private String avatarUrl;
-
-	/**
 	 * 用户密码
 	 */
 	private String password;
+
+	/**
+	 * 用户头像URL
+	 */
+	private String avatarUrl;
 
 	/**
 	 * 用户简历
@@ -57,6 +58,21 @@ public class User implements Serializable {
 	private Integer status;
 
 	/**
+	 * 经度
+	 */
+	private Double longitude;
+
+	/**
+	 * 纬度
+	 */
+	private Double latitude;
+
+	/**
+	 * 账户余额
+	 */
+	private Integer balance;
+
+	/**
 	 * 账户创建时间
 	 */
 	private Date createdTime;
@@ -67,7 +83,7 @@ public class User implements Serializable {
 	private Date updatedTime;
 
 	/**
-	 * 是否删除 0 - 未删除， 1 - 删除
+	 * 是否删除 0-未删除，1-删除
 	 */
 	private Integer isDelete;
 

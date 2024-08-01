@@ -7,7 +7,7 @@ import com.mahua.poetryovertea.constant.UserConstant;
 import com.mahua.poetryovertea.exception.BusinessException;
 import com.mahua.poetryovertea.exception.ThrowUtils;
 import com.mahua.poetryovertea.mapper.UserMapper;
-import com.mahua.poetryovertea.model.entity.User;
+import com.mahua.poetryovertea.mapper.User;
 import com.mahua.poetryovertea.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

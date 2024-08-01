@@ -3,7 +3,7 @@ package com.mahua.poetryovertea.controller;
 import com.mahua.poetryovertea.common.BaseResponse;
 import com.mahua.poetryovertea.common.ErrorCode;
 import com.mahua.poetryovertea.common.ResultUtils;
-import com.mahua.poetryovertea.model.entity.User;
+import com.mahua.poetryovertea.mapper.User;
 import com.mahua.poetryovertea.service.UserService;
 import com.mahua.poetryovertea.utils.AliOSSUtil;
 import lombok.extern.slf4j.Slf4j;

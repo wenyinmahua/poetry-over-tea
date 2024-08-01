@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mahua.poetryovertea.mapper.PoemMapper">
+
+    <resultMap id="BaseResultMap" type="com.mahua.poetryovertea.model.entity.Poem">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="poetId" column="poet_id" jdbcType="BIGINT"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="categoryId" column="category_id" jdbcType="BIGINT"/>
+            <result property="translation" column="translation" jdbcType="VARCHAR"/>
+            <result property="appreciation" column="appreciation" jdbcType="VARCHAR"/>
+            <result property="thumbNum" column="thumb_num" jdbcType="INTEGER"/>
+            <result property="favourNum" column="favour_num" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,title,poet_id,
+        content,category_id,
+        translation,appreciation,thumb_num,
+        favour_num
+    </sql>
+</mapper>

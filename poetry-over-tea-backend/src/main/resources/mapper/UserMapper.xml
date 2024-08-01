@@ -4,15 +4,18 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mahua.poetryovertea.mapper.UserMapper">
 
-    <resultMap id="BaseResultMap" type="com.mahua.poetryovertea.model.entity.User">
+    <resultMap id="BaseResultMap" type="com.mahua.poetryovertea.mapper.User">
             <id property="id" column="id" jdbcType="BIGINT"/>
             <result property="username" column="username" jdbcType="VARCHAR"/>
             <result property="account" column="account" jdbcType="VARCHAR"/>
-            <result property="avatarUrl" column="avatar_url" jdbcType="VARCHAR"/>
             <result property="password" column="password" jdbcType="VARCHAR"/>
+            <result property="avatarUrl" column="avatar_url" jdbcType="VARCHAR"/>
             <result property="profile" column="profile" jdbcType="VARCHAR"/>
             <result property="role" column="role" jdbcType="TINYINT"/>
             <result property="status" column="status" jdbcType="TINYINT"/>
+            <result property="longitude" column="longitude" jdbcType="DECIMAL"/>
+            <result property="latitude" column="latitude" jdbcType="DECIMAL"/>
+            <result property="balance" column="balance" jdbcType="INTEGER"/>
             <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
             <result property="updatedTime" column="updated_time" jdbcType="TIMESTAMP"/>
             <result property="isDelete" column="is_delete" jdbcType="TINYINT"/>
@@ -20,8 +23,9 @@
 
     <sql id="Base_Column_List">
         id,username,account,
-        avatar_url,password,profile,
-        role,status,created_time,
+        password,avatar_url,profile,
+        role,status,longitude,
+        latitude,balance,created_time,
         updated_time,is_delete
     </sql>
 </mapper>

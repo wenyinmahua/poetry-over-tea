@@ -1,6 +1,6 @@
 package com.mahua.poetryovertea.service;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.mahua.poetryovertea.model.entity.User;
+import com.mahua.poetryovertea.mapper.User;
 import javax.servlet.http.HttpServletRequest;
 
 /**
