@@ -15,23 +15,23 @@ public class UserAddRequest implements Serializable {
     /**
      * 用户昵称
      */
-    private String userName;
+    private String username;
 
     /**
      * 账号
      */
-    private String userAccount;
+    private String account;
 
 
     /**
      * 用户角色: 0 - user, 1 - admin
      */
-    private Integer userRole;
+    private Integer role;
 
     /**
      * 密码
      */
-    private String userPassword;
+    private String password;
 
     private static final long serialVersionUID = 1L;
 }

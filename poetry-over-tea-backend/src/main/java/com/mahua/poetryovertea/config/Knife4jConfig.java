@@ -25,8 +25,8 @@ public class Knife4jConfig {
     public Docket defaultApi() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(new ApiInfoBuilder()
-                        .title("XXX系统")
-                        .description("# XXX系统")
+                        .title("煮酒论诗系统")
+                        .description("# 煮酒论诗系统")
                         .contact(new Contact("author","https://github.com/wenyinmahua/springbootinit","501847822@qq.com"))
                         .version("1.0")
                         .build())

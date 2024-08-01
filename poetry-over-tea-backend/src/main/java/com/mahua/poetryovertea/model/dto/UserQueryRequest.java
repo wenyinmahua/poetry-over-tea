@@ -22,12 +22,12 @@ public class UserQueryRequest extends PageRequest implements Serializable {
     /**
      * 用户昵称
      */
-    private String userName;
+    private String username;
 
     /**
      * 账号
      */
-    private String userAccount;
+    private String account;
 
 
 
@@ -35,7 +35,7 @@ public class UserQueryRequest extends PageRequest implements Serializable {
     /**
      * 用户角色: 0 - user, 1 - admin
      */
-    private Integer userRole;
+    private Integer role;
 
     /**
      * 创建时间

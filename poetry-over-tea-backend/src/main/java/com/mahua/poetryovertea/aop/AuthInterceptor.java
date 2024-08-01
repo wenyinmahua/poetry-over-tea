@@ -44,7 +44,7 @@ public class AuthInterceptor {
 		// 如果 userRole 是 String 类型的，需要修改第 50 行和第 55 行的 userRoleString 为 userRole；同时删除第 47 行代码 ，取消第 45 行代码的注释，请按步执行；
 //		String userRole = user.getUserRole();
 		// 如果用户的 userRole 是 Integer 类型的
-		Integer userRole = user.getUserRole();
+		Integer userRole = user.getRole();
 		String userRoleString = userRole.equals(UserConstant.DEFAULT_ROLE_CODE) ? UserConstant.DEFAULT_ROLE : UserConstant.ADMIN_ROLE;
 		if(CollectionUtils.isNotEmpty(anyRole)){
 			if (!anyRole.contains(userRoleString)){

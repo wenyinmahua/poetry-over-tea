@@ -1,19 +1,22 @@
 package com.mahua.poetryovertea.model.entity;
-import com.baomidou.mybatisplus.annotation.*;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
- * 用户表
+ * 存储用户基本信息
  * @TableName user
  */
 @TableName(value ="user")
 @Data
 public class User implements Serializable {
 	/**
-	 * 用户id
+	 * 用户ID，自增主键
 	 */
 	@TableId(type = IdType.AUTO)
 	private Long id;
@@ -24,44 +27,48 @@ public class User implements Serializable {
 	private String username;
 
 	/**
-	 * 账号
+	 * 用户账号
 	 */
-	private String userAccount;
+	private String account;
 
 	/**
-	 * 密码
+	 * 用户头像URL
 	 */
-	private String userPassword;
+	private String avatarUrl;
 
 	/**
-	 * 状态：0-正常，1-禁用
+	 * 用户密码
 	 */
-	private Integer userStatus;
+	private String password;
 
 	/**
-	 * 用户角色：
-	 * 0-普通用户
-	 * 1-管理员
-	 * 2-超级管理员
+	 * 用户简历
 	 */
-	private Integer userRole;
+	private String profile;
 
 	/**
-	 * 创建时间
+	 * 用户角色，0-普通用户 1-管理员
 	 */
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
-	private Date createTime;
+	private Integer role;
 
 	/**
-	 * 更新时间
+	 * 用户状态，0-正常，1-禁用
 	 */
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone="GMT+8")
-	private Date updateTime;
+	private Integer status;
 
 	/**
-	 * 是否删除
+	 * 账户创建时间
 	 */
-	@TableLogic
+	private Date createdTime;
+
+	/**
+	 * 信息最后更新时间
+	 */
+	private Date updatedTime;
+
+	/**
+	 * 是否删除 0 - 未删除， 1 - 删除
+	 */
 	private Integer isDelete;
 
 	@TableField(exist = false)
