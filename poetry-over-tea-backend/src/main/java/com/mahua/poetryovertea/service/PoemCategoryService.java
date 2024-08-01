@@ -10,4 +10,5 @@ import com.mahua.poetryovertea.model.entity.PoemCategory;
 */
 public interface PoemCategoryService extends IService<PoemCategory> {
 
+	Long getCategoryIdByName(String categoryName);
 }

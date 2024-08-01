@@ -1,15 +1,21 @@
 package com.mahua.poetryovertea.service.impl;
 
+import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.read.listener.PageReadListener;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mahua.poetryovertea.common.DeleteRequest;
 import com.mahua.poetryovertea.common.ErrorCode;
 import com.mahua.poetryovertea.exception.BusinessException;
 import com.mahua.poetryovertea.model.dto.PoemDTO;
+import com.mahua.poetryovertea.model.dto.PoemInsertDTO;
+import com.mahua.poetryovertea.model.dto.PoemQueryTagDTO;
 import com.mahua.poetryovertea.model.entity.Dynasty;
 import com.mahua.poetryovertea.model.entity.Poem;
 import com.mahua.poetryovertea.model.entity.PoemCategory;
 import com.mahua.poetryovertea.model.entity.Poet;
+import com.mahua.poetryovertea.model.vo.PoemVO;
 import com.mahua.poetryovertea.service.PoemCategoryService;
 import com.mahua.poetryovertea.service.DynastyService;
 import com.mahua.poetryovertea.service.PoemService;
@@ -22,6 +28,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.stream.Collectors;
 
 /**
 * @author mahua
@@ -41,10 +50,85 @@ public class PoemServiceImpl extends ServiceImpl<PoemMapper, Poem>
 	@Resource
 	private PoemCategoryService poemCategoryService;
 
+	@Resource
+	private PoemMapper poemMapper;
+
 	@Override
+	public Page<PoemVO> getPoemsByPage(PoemQueryTagDTO poemQueryTagDTO) {
+
+		// 假设只能按一个条件来查。
+		String poetName = poemQueryTagDTO.getPoet();
+		String dynastyName = poemQueryTagDTO.getDynasty();
+		String categoryName = poemQueryTagDTO.getCategory();
+
+		int current = poemQueryTagDTO.getCurrent();
+		int pageSize = poemQueryTagDTO.getPageSize();
+		Page<PoemVO> poemVOPage = new Page<>(current,pageSize);
+		if (StringUtils.isNotEmpty(poetName)){
+			// 诗人名不为空，可以确定朝代了，两个都确定了，这个时候只需要联表查询分类了，直接将查出的古诗写入字符串值。
+			Poet poet = poetService.getOne(new QueryWrapper<Poet>().eq("name",poetName));
+			Long poetId = poet.getId();
+			dynastyName = dynastyService.getOne(new QueryWrapper<Dynasty>().eq("id",poet.getDynastyId())).getName();
+			String finalDynastyName = dynastyName;
+			poemVOPage = poemMapper.queryPoemsByPoetId(poemVOPage,poetId);
+			poemVOPage.getRecords().stream().map(poemVO -> {
+				poemVO.setDynasty(finalDynastyName);
+				poemVO.setPoet(poetName);
+				return poemVO;
+			}).collect(Collectors.toList());
+			return poemVOPage;
+		}
+		if (StringUtils.isNotEmpty(dynastyName)){
+			// 朝代确定了，只能先查诗人 id ，然后再查古诗表+分类表了。
+			Long dynastyId = dynastyService.getOne(new QueryWrapper<Dynasty>().eq("name",dynastyName)).getId();
+			poemVOPage = poemMapper.queryPoemsByDynastyId(poemVOPage,dynastyId);
+			String finalDynastyName = dynastyName;
+			poemVOPage.getRecords().stream().peek(poemVO -> poemVO.setDynasty(finalDynastyName)).collect(Collectors.toList());
+			return poemVOPage;
+		}
+		if (StringUtils.isNotEmpty(categoryName)){
+			// 分类确定了，确定查什么诗了，作者也知道了，当然朝代也知道了。
+			Long categoryId = poemCategoryService.getOne(new QueryWrapper<PoemCategory>().eq("name",categoryName)).getId();
+			poemVOPage = poemMapper.queryPoemsByCategoryId(poemVOPage,categoryId);
+			poemVOPage.getRecords().stream().peek(poemVO -> poemVO.setCategory(categoryName));
+			return poemVOPage;
+		}
+		poemVOPage = poemMapper.queryPoems(poemVOPage);
+		return poemVOPage;
+
+	}
+
+	@Override
+	@Transactional
 	public Boolean addPoemBulk(MultipartFile file) {
-		// todo 插入古诗词实现
-		return null;
+		try {
+			if (file == null) {
+				throw new BusinessException(ErrorCode.PARAMS_ERROR, "请选择上传文件");
+			}
+			String originalFilename = file.getOriginalFilename();
+			if (originalFilename == null || (!originalFilename.endsWith(".xls") && !originalFilename.endsWith(".xlsx"))) {
+				throw new BusinessException(ErrorCode.PARAMS_ERROR, "文件格式错误");
+			}
+			// 使用try-with-resources自动关闭InputStream，防止资源泄露
+			try (InputStream inputStream = file.getInputStream()) {
+				EasyExcel.read(inputStream, PoemInsertDTO.class, new PageReadListener<PoemInsertDTO>(poemDTOList -> {
+					for (PoemInsertDTO poemInsertDTO : poemDTOList) {
+						Poem poem = new Poem();
+						BeanUtils.copyProperties(poemInsertDTO, poem);
+						Long poetId = poetService.getPoetIdByName(poemInsertDTO.getPoet());
+						poem.setPoetId(poetId);
+						Long categoryId = poemCategoryService.getCategoryIdByName(poemInsertDTO.getCategory());
+						poem.setCategoryId(categoryId);
+						this.save(poem);
+					}
+				})).sheet().doRead();
+			}
+			return true;
+		} catch (IOException e) {
+			// 处理解析文件时可能发生的IO异常
+			log.error("读取Excel文件时发生错误", e);
+			throw new BusinessException(ErrorCode.SYSTEM_ERROR, "文件读取失败");
+		}
 	}
 
 	@Override

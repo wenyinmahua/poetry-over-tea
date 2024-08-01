@@ -11,7 +11,7 @@ import lombok.Data;
  * 存储诗词分类基本信息
  * @TableName category
  */
-@TableName(value ="category")
+@TableName(value ="poem_category")
 @Data
 public class PoemCategory implements Serializable {
     /**

@@ -10,4 +10,5 @@ import com.mahua.poetryovertea.model.entity.Dynasty;
 */
 public interface DynastyService extends IService<Dynasty> {
 
+	Long getDynastyIdByName(String dynasty);
 }

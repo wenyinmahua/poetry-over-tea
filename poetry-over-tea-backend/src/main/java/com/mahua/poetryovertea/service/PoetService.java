@@ -2,6 +2,7 @@ package com.mahua.poetryovertea.service;
 
 import com.mahua.poetryovertea.model.entity.Poet;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
 * @author mahua
@@ -10,4 +11,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface PoetService extends IService<Poet> {
 
+	Long getPoetIdByName(String poet);
+
+	Boolean addPoetBulk(MultipartFile file);
 }

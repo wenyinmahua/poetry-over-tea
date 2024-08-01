@@ -1,5 +1,6 @@
 package com.mahua.poetryovertea.controller;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mahua.poetryovertea.annotation.AuthCheck;
 import com.mahua.poetryovertea.common.BaseResponse;
@@ -7,6 +8,7 @@ import com.mahua.poetryovertea.common.DeleteRequest;
 import com.mahua.poetryovertea.common.ResultUtils;
 import com.mahua.poetryovertea.constant.UserConstant;
 import com.mahua.poetryovertea.model.dto.PoemDTO;
+import com.mahua.poetryovertea.model.dto.PoemQueryTagDTO;
 import com.mahua.poetryovertea.model.vo.PoemVO;
 import com.mahua.poetryovertea.service.PoemService;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +27,8 @@ public class PoemController {
 	// region 古诗词增删改查
 
 	@GetMapping("/page")
-	public BaseResponse<Page<PoemVO>> getPoemsByPage(){
-		return null;
+	public BaseResponse<Page<PoemVO>> getPoemsByPage(PoemQueryTagDTO poemQueryTagDTO){
+		return ResultUtils.success(poemService.getPoemsByPage(poemQueryTagDTO));
 	}
 
 	@PostMapping("/update")
